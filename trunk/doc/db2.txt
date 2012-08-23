@@ -1,0 +1,4 @@
+db2connect to 数据库名 user 用户名(TestUser) using 密码
+
+
+http://www.ibm.com/developerworks/wikis/display/db2oncampus/FREE+ebook+-+Getting+started+with+DB2+application+development
