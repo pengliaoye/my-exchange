@@ -1,0 +1,40 @@
+http://bash.cyberciti.biz/guide/Main_Page
+http://learn.akae.cn/media/index.html
+http://www.72up.com/c.htm
+http://dev.ariel-networks.com/apr/apr-tutorial/html/apr-tutorial.html
+http://www.yolinux.com/TUTORIALS/LinuxTutorialNetworking.html
+http://rhel.ieesee.net/uingei/rhel-server-6.2-i386-dvd.iso
+http://rhel.ieesee.net/uingei/
+
+
+
+http://dl2.c6.sendfile.vip.xunlei.com:8000/rhel%2Dserver%2D6%2E2%2Di386%2Ddvd%2Eiso?key=5bd8758b73204886411281a92b226bb3&file_url=%2Fgdrive%2Fresource%2F53%2F57%2F532F327769CD5E578EF5E44DABEB7C0C4FD02257&file_type=0&authkey=F6F55BA5E246E3730D7FE49A1F0701BB36FB9894A4D172918A53156CC8F5E38A&exp_time=1329742802&from_uid=32645&task_id=5688032740102507522&get_uid=1000065593&f=lixian.vip.xunlei.com&fid=0ifNFtfnUyGwMr7MvHz0VjXEaVQAANa0AAAAAFMvMndpzV5XjvXkTavrfAxP0CJX&mid=666&threshold=150&tid=D2DE31A65DA11B24B202BD0E510C4EC6&srcid=7&verno=1
+
+b22f085c47d9ff6581389c7a09c3f5b1 
+
+
+select id, pid, name, flag, connect_by_isleaf leaf, level
+  from tree
+ start with pid is null
+connect by prior id = pid
+ order siblings by name
+
+
+北京联创信安科技有限公司
+重庆斯欧信息技术有限公司
+北京中软国际信息技术有限公司
+上海统御信息科技有限公司
+深圳邦建通讯设备有限公司
+
+亚信科技（成都）有限公司
+中通服软件科技有限公司
+重庆亚德科技股份有限公司 
+
+
+
+分布式系统设计
+分布式系统慨念与设计
+
+http://www.timezoneconverter.com/cgi-bin/zoneinfo.tzc
+
+java -Xbootclasspath/a:lib/com.zte.common.encrypt.jar:lib/commons-configuration-1.8.jar:lib/commons-lang-2.6.jar:lib/commons-logging-1.1.1.jar:lib/dom4j-1.6.1.jar:lib/jaxen-1.1-beta-6.jar: -jar config.jar -path '/home/zxin10/temp/param.properties'

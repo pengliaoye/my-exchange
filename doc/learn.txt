@@ -1,0 +1,45 @@
+git
+maven
+drools
+camunda fox
+techtarget
+Salesforce
+Intalio BPM
+CloudStack
+OpenStack
+AbiCloud
+IBM Data Studio
+Rapid SQL
+Fiddler
+Wireshark
+DocBook 
+FancyBox
+subModal
+checktree
+jbpm
+Apache OFBiz
+Jenkins
+Apache Camel
+Apache ActiveMQ
+Apache ServiceMix
+Mule
+JBOSS SOA
+Rest
+CDI
+JIRA
+Bugzilla
+google Closure Compiler
+guava
+apache-cassandra
+redis
+MongoDB
+Cassandra
+HBase
+Global IP Solutions
+Asterisk
+find bugs
+ejs
+sorttable.js
+
+
+mvn archetype:generate -DgroupId=[your project's group id] -DartifactId=[your project's artifact id] -DarchetypeArtifactId=maven-archetype-archetype
