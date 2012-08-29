@@ -1,0 +1,115 @@
+<ns1:deployment xmlns="http://xml.apache.org/axis/wsdd/"
+	xmlns:java="http://xml.apache.org/axis/wsdd/providers/java" xmlns:ns1="http://xml.apache.org/axis/wsdd/">
+	<ns1:globalConfiguration>
+		<ns1:parameter name="sendMultiRefs" value="true" />
+		<ns1:parameter name="axis.disableServiceList" value="true" /> <!-- 使service列表不可用 -->
+		<ns1:parameter name="disablePrettyXML" value="true" />
+		<ns1:parameter name="adminPassword" value="admin" />
+		<ns1:parameter name="attachments.Directory"
+			value="E:\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\gx10000\WEB-INF\attachments" />
+		<ns1:parameter name="dotNetSoapEncFix" value="true" />
+		<ns1:parameter name="enableNamespacePrefixOptimization"
+			value="false" />
+		<ns1:parameter name="sendXMLDeclaration" value="true" />
+		<ns1:parameter name="sendXsiTypes" value="true" />
+		<ns1:parameter name="attachments.implementation"
+			value="org.apache.axis.attachments.AttachmentsImpl" />
+		<ns1:requestFlow>
+			<ns1:handler type="java:org.apache.axis.handlers.JWSHandler">
+				<ns1:parameter name="scope" value="session" />
+			</ns1:handler>
+			<ns1:handler type="java:org.apache.axis.handlers.JWSHandler">
+				<ns1:parameter name="scope" value="request" />
+				<ns1:parameter name="extension" value=".jwr" />
+			</ns1:handler>
+		</ns1:requestFlow>
+	</ns1:globalConfiguration>
+	<ns1:handler name="URLMapper"
+		type="java:org.apache.axis.handlers.http.URLMapper" />
+	<ns1:handler name="LocalResponder"
+		type="java:org.apache.axis.transport.local.LocalResponder" />
+	<ns1:handler name="Authenticate"
+		type="java:org.apache.axis.handlers.SimpleAuthenticationHandler" />
+	<ns1:handler name="soapmonitor"
+		type="java:org.apache.axis.handlers.SOAPMonitorHandler" />
+	<ns1:handler name="logging" type="java:com.gx10000.ws.handler.LogHandler"/>
+	<ns1:service name="SOAPMonitorApplet" provider="java:RPC">
+		<ns2:operation name="init" qname="ns1:init" soapAction=""
+			xmlns:ns1="http://DefaultNamespace" xmlns:ns2="http://xml.apache.org/axis/wsdd/" />
+		<ns1:operation name="start" qname="ns2:start"
+			soapAction="" xmlns:ns2="http://DefaultNamespace" />
+		<ns1:operation name="destroy" qname="ns3:destroy"
+			soapAction="" xmlns:ns3="http://DefaultNamespace" />
+		<ns1:operation name="stop" qname="ns4:stop" soapAction=""
+			xmlns:ns4="http://DefaultNamespace" />
+		<ns1:parameter name="allowedMethods" value="destroy stop start init" />
+		<ns1:parameter name="wsdlPortType" value="SOAPMonitorApplet" />
+		<ns1:parameter name="typeMappingVersion" value="1.2" />
+		<ns1:parameter name="wsdlServicePort" value="SOAPMonitorApplet" />
+		<ns1:parameter name="className" value="SOAPMonitorApplet" />
+		<ns1:parameter name="wsdlTargetNamespace" value="http://DefaultNamespace" />
+		<ns1:parameter name="wsdlServiceElement" value="SOAPMonitorAppletService" />
+		<ns1:parameter name="scope" value="Application" />
+	</ns1:service>
+	<ns1:service name="AdminService" provider="java:MSG">
+		<ns1:parameter name="allowedMethods" value="AdminService" />
+		<ns1:parameter name="enableRemoteAdmin" value="false" />
+		<ns1:parameter name="className" value="org.apache.axis.utils.Admin" />
+		<ns1:namespace>http://xml.apache.org/axis/wsdd/</ns1:namespace>
+	</ns1:service>
+	<ns1:service name="NetWebService" provider="java:RPC">
+		<ns1:wsdlFile>/wsdl/Null.wsdl</ns1:wsdlFile>
+		<ns1:operation name="service" qname="ns5:service"
+			returnQName="serviceReturn" returnType="xsd:string" soapAction=""
+			xmlns:ns5="http://ws.gx10000.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<ns1:parameter name="request" type="xsd:string" />
+		</ns1:operation>
+		<ns1:requestFlow>
+			<ns1:handler type="soapmonitor" />
+			<ns1:handler type="logging"/>
+			<ns1:handler type="Authenticate" />
+		</ns1:requestFlow>
+		<ns1:responseFlow>
+			<ns1:handler type="soapmonitor" />
+			<ns1:handler type="logging"/>
+		</ns1:responseFlow>
+		<ns1:parameter name="allowedMethods" value="service" />
+		<ns1:parameter name="allowedRoles" value="user1,user2,user3" />
+		<ns1:parameter name="typeMappingVersion" value="1.2" />
+		<ns1:parameter name="wsdlPortType" value="NetWebService" />
+		<ns1:parameter name="className" value="com.gx10000.ws.NetWebService" />
+		<ns1:parameter name="wsdlServicePort" value="NetWebService" />
+		<ns1:parameter name="wsdlTargetNamespace" value="http://ws.gx10000.com" />
+		<ns1:parameter name="wsdlServiceElement" value="NetWebServiceService" />
+	</ns1:service>
+	<ns1:service name="Version" provider="java:RPC">
+		<ns1:parameter name="allowedMethods" value="getVersion" />
+		<ns1:parameter name="className" value="org.apache.axis.Version" />
+	</ns1:service>
+	<ns1:transport name="http">
+		<ns1:requestFlow>
+			<ns1:handler type="URLMapper" />
+			<ns1:handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler" />
+		</ns1:requestFlow>
+		<!-- 
+		<ns1:parameter name="useDefaultQueryStrings" value="false" />
+		 -->
+		<ns1:parameter name="qs:list"
+			value="org.apache.axis.transport.http.QSListHandler" />
+		<ns1:parameter name="qs:wsdl"
+			value="org.apache.axis.transport.http.QSWSDLHandler" />
+		<ns1:parameter name="qs.list"
+			value="org.apache.axis.transport.http.QSListHandler" />
+		<ns1:parameter name="qs.method"
+			value="org.apache.axis.transport.http.QSMethodHandler" />
+		<ns1:parameter name="qs:method"
+			value="org.apache.axis.transport.http.QSMethodHandler" />
+		<ns1:parameter name="qs.wsdl"
+			value="org.apache.axis.transport.http.QSWSDLHandler" />
+	</ns1:transport>
+	<ns1:transport name="local">
+		<ns1:responseFlow>
+			<ns1:handler type="LocalResponder" />
+		</ns1:responseFlow>
+	</ns1:transport>
+</ns1:deployment>
