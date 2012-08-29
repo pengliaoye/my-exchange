@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from SOAPMonitorAppletService WSDL service -->
+
+  <service name="SOAPMonitorApplet" provider="java:RPC" style="rpc" use="encoded">
+      <parameter name="wsdlTargetNamespace" value="http://DefaultNamespace"/>
+      <parameter name="wsdlServiceElement" value="SOAPMonitorAppletService"/>
+      <parameter name="wsdlServicePort" value="SOAPMonitorApplet"/>
+      <parameter name="className" value="SOAPMonitorApplet"/>
+      <parameter name="wsdlPortType" value="SOAPMonitorApplet"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://DefaultNamespace" name="init" qname="operNS:init" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://DefaultNamespace" name="start" qname="operNS:start" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://DefaultNamespace" name="destroy" qname="operNS:destroy" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://DefaultNamespace" name="stop" qname="operNS:stop" soapAction="">
+      </operation>
+      <parameter name="allowedMethods" value="destroy stop start init"/>
+
+  </service>
+</deployment>
