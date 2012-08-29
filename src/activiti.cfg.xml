@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="processEngineConfiguration"
+		class="org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration">
+
+		<!-- Database configurations -->
+		<property name="databaseType" value="oracle" />
+		<property name="databaseSchemaUpdate" value="true" />
+		<property name="jdbcUrl"
+			value="jdbc:oracle:thin:@134.192.197.135:1521:zte" />
+		<property name="jdbcDriver" value="oracle.jdbc.OracleDriver" />
+		<property name="jdbcUsername" value="admin" />
+		<property name="jdbcPassword" value="abc123456" />
+
+		<property name="dbCycleUsed" value="true" />
+		
+		<property name="mailServerHost" value="smtp.126.com"/>
+		<property name="mailServerPort" value="25"/>
+		<property name="mailServerDefaultFrom" value="wjpgy@126.com"/>
+		<property name="mailServerUsername" value="wjpgy@126.com"/>
+		<property name="mailServerPassword" value="78461161"/>		
+	</bean>
+
+</beans>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"      "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="exchange">
+	<select id="getTime" resultType="string">
+		SELECT USER
+		FROM DUAL
+	</select>
+	<select id="getdutyreason" parameterType="int" resultType="tree">
+		select 
+			headid as id,
+			parentd as pid,
+			name as text,
+			decode(sign((select count(*) from cc_headtype where parentid=a.headid)),0,1,0) leaf
+		from cc_headtype a
+		where areacode=0 and intstop=0 and parentid=#{parentid}
+		order by headid
+	</select>
+	<select id="">
+		<where>
+			<choose>
+				<when test=""></when>
+				<otherwise></otherwise>
+			</choose>
+		</where>
+	</select>
+	<sql id="beginPage">
+		<![CDATA[
+				select * from (select a.*,rownum rn from (
+		]]>
+	</sql>
+	<sql id="endPage">
+		<![CDATA[
+				) a where rownum<=#{beginRow} ) where rn>=#{endRow}
+		]]>
+	</sql>
+	<sql id="beginCount">
+		<![CDATA[
+				select count(1) from (
+		]]>
+	</sql>
+	<sql id="endCount">
+		<![CDATA[
+				) count
+		]]>
+	</sql>
+</mapper>

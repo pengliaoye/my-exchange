@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions id="definitions"
+	targetNamespace="http://activiti.org/bpmn20"
+	xmlns:activiti="http://activiti.org/bpmn"
+	xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+	xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+	xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+	xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+	xmlns:tns="http://activiti.org/bpmn20"
+	xmlns:ws="http://ws.gxct10000.com">
+	<import importType="http://schemas.xmlsoap.org/wsdl/"
+		location="src/NetWebService.wsdl" namespace="http://ws.gxct10000.com" />
+	<process id="workflow" name="workflow">
+		<ioSpecification>
+			<dataInput id="dataInputOfProcess"
+				itemSubjectRef="tns:serviceRequestItem">
+			</dataInput>
+			<dataOutput id="dataOutputOfProcess"
+				itemSubjectRef="tns:serviceResponseItem">
+			</dataOutput>
+			<inputSet>
+				<dataInputRefs>dataInputOfProcess</dataInputRefs>
+			</inputSet>
+			<outputSet>
+				<dataOutputRefs>dataOutputOfProcess</dataOutputRefs>
+			</outputSet>
+		</ioSpecification>
+		<startEvent id="startEvent" name="startEvent"
+			activiti:initiator="initiator"
+			activiti:formKey="org/activiti/examples/taskforms/request.form">
+		</startEvent>
+		<scriptTask id="scriptTask1" name="printflowno"
+			scriptFormat="groovy">
+			<script>out:print "flowno is :"+flowno+"\n";</script>
+		</scriptTask>
+		<sequenceFlow targetRef="scriptTask1" sourceRef="startEvent"></sequenceFlow>
+		<serviceTask id="webService" name="Web service invocation"
+			implementation="##WebService" operationRef="tns:serviceOperation">
+			<ioSpecification>
+				<dataInput id="dataInputOfServiceTask"
+					itemSubjectRef="tns:serviceRequestItem">
+				</dataInput>
+				<dataOutput id="dataOutputOfServiceTask"
+					itemSubjectRef="tns:serviceResponseItem">
+				</dataOutput>
+				<inputSet>
+					<dataInputRefs>
+						dataInputOfServiceTask
+					</dataInputRefs>
+				</inputSet>
+				<outputSet>
+					<dataOutputRefs>
+						dataOutputOfServiceTask
+					</dataOutputRefs>
+				</outputSet>
+			</ioSpecification>
+			<dataInputAssociation>
+				<sourceRef>dataInputOfProcess</sourceRef>
+				<targetRef>dataInputOfServiceTask</targetRef>
+				<assignment>
+					<from>${dataInputOfProcess.request}</from>
+					<to>${dataInputOfServiceTask.request}</to>
+				</assignment>
+			</dataInputAssociation>
+			<dataOutputAssociation>
+				<targetRef>dataInputOfProcess</targetRef>
+				<transformation>
+					${dataInputOfServiceTask.serviceReturn}
+				</transformation>
+			</dataOutputAssociation>
+		</serviceTask>
+		<serviceTask id="webService1" name="Web service invocation1"
+			activiti:class="com.exchange.delegate.WsDelegate">
+			<extensionElements>
+				<activiti:field name="wsdl"
+					expression="http://134.201.138.130:9082/zxcc/services/NetWebService?wsdl">
+				</activiti:field>
+				<activiti:field name="operation" expression="service"></activiti:field>
+				<activiti:field name="parameters"
+					expression="${request}">
+				</activiti:field>
+				<activiti:field name="returnValue"
+					expression="serviceReturn">
+				</activiti:field>
+			</extensionElements>
+		</serviceTask>
+		<sequenceFlow targetRef="webService1" sourceRef="scriptTask1"></sequenceFlow>
+		<!-- 
+			<sequenceFlow targetRef="webService" sourceRef="scriptTask1"></sequenceFlow>
+		-->
+		<userTask id="userTask1" name="填单">
+			<documentation>根据客户反映内容填单</documentation>
+			<extensionElements>
+				<activiti:taskListener event="complete"
+					class="com.exchange.listener.MyTaskListener" />
+			</extensionElements>
+			<potentialOwner>
+				<resourceAssignmentExpression>
+					<formalExpression>
+						user(kermit),group(management)
+					</formalExpression>
+				</resourceAssignmentExpression>
+			</potentialOwner>
+		</userTask>
+		<sequenceFlow targetRef="userTask1" sourceRef="webService1"></sequenceFlow>
+		<!-- 
+			<sequenceFlow targetRef="userTask1" sourceRef="webService"></sequenceFlow>
+		-->
+		<serviceTask id="sendMail" name="sendMail"
+			activiti:type="mail">
+			<extensionElements>
+				<activiti:field name="from" stringValue="wjpgy@126.com" />
+				<activiti:field name="to" expression="${recipient}" />
+				<activiti:field name="subject"
+					expression="工单流水号：${flowno}">
+				</activiti:field>
+				<activiti:field name="html">
+					<activiti:expression>
+						<![CDATA[ 
+						<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+						<html>
+						<head>
+						<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+						<title>Insert title here</title>
+						</head>
+						<body>
+							发送邮件内容！
+						</body>
+						</html>
+        			]]>
+					</activiti:expression>
+				</activiti:field>
+			</extensionElements>
+		</serviceTask>
+		<sequenceFlow targetRef="sendMail" sourceRef="userTask1"></sequenceFlow>
+		<endEvent id="endEvent" name="endEvent"></endEvent>
+		<sequenceFlow sourceRef="sendMail" targetRef="endEvent"></sequenceFlow>
+	</process>
+	<itemDefinition id="serviceRequestItem" structureRef="ws:service" /><!-- QName of input element -->
+	<!-- NEEDED FOR THE ARGUMENTS -->
+	<itemDefinition id="serviceResponseItem"
+		structureRef="ws:serviceResponse" /><!-- QName of output element -->
+	<message id="serviceRequestMessage"
+		itemRef="tns:serviceRequestItem" />
+	<message id="serviceResponseMessage"
+		itemRef="tns:serviceResponseItem" />
+	<!-- Interface: implementationRef = QName of WSDL Port Type -->
+	<interface name="Service Interface"
+		implementationRef="ws:NetWebService"><!-- NEEDED FOR THE PORT -->
+		<!-- Operation: implementationRef = QName of WSDL Operation -->
+		<operation id="serviceOperation" name="Operation"
+			implementationRef="ws:service">
+			<!-- NEEDED FOR THE OPERATION NAME -->
+			<inMessageRef>tns:serviceRequestMessage</inMessageRef>
+			<outMessageRef>tns:serviceResponseMessage</outMessageRef>
+		</operation>
+	</interface>
+
+</definitions>

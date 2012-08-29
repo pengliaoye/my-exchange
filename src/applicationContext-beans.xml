@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+     					http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+     					http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
+	<bean id="userDao" class="com.exchange.dao.UserDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	<bean id="cacheModel" class="com.exchange.cache.CacheModel">
+		<property name="cacheController">
+			<bean class="com.exchange.cache.oscache.OSCacheController"/>
+		</property>
+		<property name="id" value="cache"></property>
+	</bean>
+	<bean id="userService" class="com.exchange.service.UserServiceImpl">
+		<property name="userDao">
+			<ref bean="userDao"/>
+		</property>
+		<property name="cacheModel">
+			<ref bean="cacheModel"/>
+		</property>
+	</bean>
+	<bean id="userAction"  class="com.exchange.action.UserAction">
+		<property name="userService">
+			<ref bean="userService"/>
+		</property>
+	</bean>
+	<bean id="fileUpLoadAction" class="com.exchange.action.FileUploadAction"></bean>
+</beans>

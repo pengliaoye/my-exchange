@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>AXIS设置HTTP连接池的参数</comment>
+	<!-- "Total Connections" Pool size -->
+	<entry key="axis.http.client.maximum.total.connections">50</entry>
+	<!-- "Connections per host" pool size -->
+	<entry key="axis.http.client.maximum.connections.per.host">20</entry>
+	<!--  max duration to wait for a connection from the pool -->
+	<entry key="axis.http.client.connection.pool.timeout">2000</entry>
+	<!-- Timeout to establish connection in millis -->
+	<entry key="axis.http.client.connection.default.connection.timeout">2000</entry>
+	<!-- Timeout "waiting for data" (read timeout) -->
+	<entry key="axis.http.client.connection.default.so.timeout">2500</entry>
+</properties>
