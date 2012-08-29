@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<package name="/" extends="json-default">
+
+		<action name="login">
+			<result>/login.jsp</result>
+		</action>
+
+		<action name="upload" class="com.exchange.action.UploadAction"
+			method="execute">
+			<param name="uploadDir">upload</param>
+			<interceptor-ref name="basicStack" />
+			<interceptor-ref name="fileUpload">
+				<param name="allowedTypes">image/jpeg,image/gif</param>
+				<param name="maximumSize">500000</param>
+			</interceptor-ref>
+			<interceptor-ref name="validation" />
+			<result type="json"/>
+		</action>
+
+	</package>
+
+</struts>
+

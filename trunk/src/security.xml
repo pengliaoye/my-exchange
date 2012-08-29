@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:sec="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+          http://www.springframework.org/schema/security
+          http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<bean id="springSecurityFilterChain" class="org.springframework.security.web.FilterChainProxy">
+		<constructor-arg>
+			<list>
+				<sec:filter-chain pattern="/secure/extreme/**"
+					filters="securityContextPersistenceFilter,usernamePasswordAuthenticationFilter,exceptionTranslationFilter,filterSecurityInterceptor" />
+				<sec:filter-chain pattern="/secure/**"
+					filters="securityContextPersistenceFilter,usernamePasswordAuthenticationFilter,exceptionTranslationFilter,filterSecurityInterceptor" />
+				<sec:filter-chain pattern="/**"
+					filters="securityContextPersistenceFilter,usernamePasswordAuthenticationFilter,exceptionTranslationFilter,filterSecurityInterceptor" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="securityContextPersistenceFilter"
+		class="org.springframework.security.web.context.SecurityContextPersistenceFilter" />
+
+	<bean id="authenticationFailureHandler"
+		class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+		<property name="defaultFailureUrl" value="/login.jsp" />
+	</bean>
+
+	<bean id="usernamePasswordAuthenticationFilter"
+		class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="authenticationFailureHandler" ref="authenticationFailureHandler" />
+	</bean>
+
+	<bean id="authenticationEntryPoint"
+		class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+		<constructor-arg>
+			<value>/login.jsp</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="exceptionTranslationFilter"
+		class="org.springframework.security.web.access.ExceptionTranslationFilter">
+		<constructor-arg>
+			<ref bean="authenticationEntryPoint" />
+		</constructor-arg>
+	</bean>
+
+	<bean id="inMemoryUserDetailsManager"
+		class="org.springframework.security.provisioning.InMemoryUserDetailsManager">
+		<constructor-arg>
+			<props>
+				<prop key="rod">
+					koala,supervisor,user,teller
+				</prop>
+			</props>
+		</constructor-arg>
+	</bean>
+
+	<bean id="daoAuthenticationProvider"
+		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<property name="userDetailsService" ref="inMemoryUserDetailsManager" />
+	</bean>
+
+	<bean id="authenticationManager"
+		class="org.springframework.security.authentication.ProviderManager">
+		<constructor-arg>
+			<list>
+				<ref bean="daoAuthenticationProvider" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter"></bean>
+	<bean id="authenticatedVoter"
+		class="org.springframework.security.access.vote.AuthenticatedVoter"></bean>
+	<bean id="webExpressionVoter"
+		class="org.springframework.security.web.access.expression.WebExpressionVoter"></bean>
+
+	<bean id="affirmativeBased"
+		class="org.springframework.security.access.vote.AffirmativeBased">
+		<constructor-arg>
+			<list>
+				<ref bean="roleVoter" />
+				<ref bean="authenticatedVoter" />
+				<ref bean="webExpressionVoter" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="filterSecurityInterceptor"
+		class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+		<property name="authenticationManager" ref="authenticationManager"></property>
+		<property name="accessDecisionManager" ref="affirmativeBased"></property>
+		<property name="securityMetadataSource">
+			<sec:filter-security-metadata-source
+				lowercase-comparisons="true" use-expressions="true">
+				<sec:intercept-url pattern="/secure/extreme/**"
+					access="hasRole('supervisor')" />
+				<sec:intercept-url pattern="/secure/**" access="isAuthenticated()" />
+			</sec:filter-security-metadata-source>
+		</property>
+	</bean>
+
+	<bean
+		class="org.springframework.security.web.access.DefaultWebInvocationPrivilegeEvaluator">
+		<constructor-arg>
+			<ref bean="filterSecurityInterceptor" />
+		</constructor-arg>
+	</bean>
+
+</beans>

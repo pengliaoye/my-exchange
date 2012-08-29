@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+     					http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+     					http://www.directwebremoting.org/schema/spring-dwr http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
+	<!-- 
+	<bean id="messageProducer" class="com.exchange.jms.MessageProducer">
+		<property name="sender">
+			<ref bean="jmsTemplate"/>
+		</property>
+		<property name="queue">
+			<ref bean="queue"/>
+		</property>
+	</bean>
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory">
+			<ref bean="connectionFactory"/>
+		</property>
+	</bean>
+	<bean id="connectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
+		<property name="targetConnectionFactory">
+			<ref bean="jmsConnectionFactory"/>
+		</property>
+	</bean>
+	<bean id="jmsConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value></value>
+		</property>
+	</bean>
+	<bean id="queue" class=""></bean>
+	<bean id="messageConsumer" class="com.exchange.jms.MessageConsumer"/>
+	<bean id="listenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory">
+			<ref bean="jmsConnectionFactory"/>
+		</property>
+		<property name=""></property>
+		<property name="messageListener">
+			<ref bean="messageConsumer"/>
+		</property>
+	</bean>
+	 -->
+</beans>

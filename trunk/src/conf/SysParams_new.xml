@@ -1,0 +1,703 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <configInfo>
+    <params>
+      <param>
+        <paramName>language</paramName>
+        <displayName>console.language</displayName>
+        <valuePath>//sys/language/value</valuePath>
+        <type>select</type>
+        <selectsValue>//sys/language/availables/item/value</selectsValue>
+        <dynamic>1</dynamic>
+      </param>
+      <param>
+        <paramName>WEBOS</paramName>
+        <displayName>console.WEBOS</displayName>
+        <valuePath>//sys/webos/type/value</valuePath>
+        <type>select</type>
+        <selectsValue>//sys/webos/type/availables/item/value</selectsValue>
+        <dynamic>1</dynamic>
+      </param>
+      <param>
+        <paramName>WEBContainer</paramName>
+        <displayName>console.WEBContainer</displayName>
+        <valuePath>//sys/WEBContainer/type</valuePath>
+        <valuePath2>//sys/WEBContainer/version</valuePath2>
+        <type>select2</type>
+        <selectsValue>//sys/WEBContainer/availables/item/value</selectsValue>
+        <selectsMemo>//sys/WEBContainer/availables/item/memo</selectsMemo>
+        <dynamic>1</dynamic>
+      </param>
+      <param>
+        <paramName>siteName</paramName>
+        <displayName>console.siteName</displayName>
+        <valuePath>//sys/siteName</valuePath>
+        <type>input</type>
+        <selects />
+        <checkRegExp>commonCheck,</checkRegExp>
+        <checkLen>20</checkLen>
+        <nullable>1</nullable>
+      </param>
+      <param>
+        <paramName>servicekey</paramName>
+        <displayName>console.servicekey</displayName>
+        <valuePath>//sys/servicekey</valuePath>
+        <type>input</type>
+        <selects />
+        <checkRegExp>commonCheck,/^[1-9][0-9]{0,7}$/</checkRegExp>
+        <checkLen>8</checkLen>
+        <nullable>0</nullable>
+      </param>
+      <param>
+        <paramName>DefaultPage</paramName>
+        <displayName>console.DefaultPage</displayName>
+        <valuePath>//sys/DefaultPage</valuePath>
+        <type>input</type>
+        <selects />
+        <checkRegExp>commonCheck,</checkRegExp>
+        <checkLen>50</checkLen>
+        <nullable>0</nullable>
+      </param>
+      <param>
+        <paramName>isMultiDatabase</paramName>
+        <displayName>console.isMultiDatabase</displayName>
+        <valuePath>//sys/isMultiDatabase</valuePath>
+        <type>input</type>
+        <selects />
+        <checkRegExp>commonCheck,/^[0|1]$/</checkRegExp>
+        <checkLen>1</checkLen>
+        <nullable>0</nullable>
+      </param>
+      <param>
+        <paramName>DeployPath</paramName>
+        <displayName>console.DeployPath</displayName>
+        <valuePath>//sys/DeployPath</valuePath>
+        <type>input</type>
+        <selects />
+        <checkRegExp>commonCheck,</checkRegExp>
+        <checkLen>50</checkLen>
+        <nullable>0</nullable>
+      </param>
+      <param>
+        <paramName>UploadFileSize</paramName>
+        <displayName>console.UploadFileSize</displayName>
+        <valuePath>//sys/UploadFileSize</valuePath>
+        <type>input</type>
+        <selects />
+        <checkRegExp>commonCheck,/[0-9]/</checkRegExp>
+        <checkLen>2</checkLen>
+        <nullable>3</nullable>
+      </param>
+    </params>
+  </configInfo>
+  <sys>
+    <language>
+      <value>zh</value>
+      <availables>
+        <item>
+          <value>en</value>
+          <memo>english</memo>
+        </item>
+        <item>
+          <value>zh</value>
+          <memo>chinese</memo>
+        </item>
+        <item>
+          <value>zh,hk</value>
+          <memo>chineseBig5</memo>
+        </item>
+      </availables>
+    </language>
+    <webos>
+      <type>
+        <value>windows</value>
+        <availables>
+          <item>
+            <value>windows</value>
+          </item>
+          <item>
+            <value>unix</value>
+          </item>
+          <item>
+            <value>linux</value>
+          </item>
+        </availables>
+      </type>
+      <language />
+      <code />
+    </webos>
+    <!--  when config value ,there must only a space to seperate the two select value -->
+    <WEBContainer>
+      <type>weblogic</type>
+      <version>8/websphere 6.1</version>
+      <availables>
+        <item>
+          <value>tomcat 4</value>
+          <memo>tomcat 4</memo>
+        </item>
+        <item>
+          <value>tomcat 5</value>
+          <memo>tomcat 5</memo>
+        </item>
+        <item>
+          <value>weblogic 8/websphere 6.1</value>
+          <memo>weblogic 8/websphere 6.1</memo>
+        </item>
+      </availables>
+    </WEBContainer>
+    <databaseTypes>
+      <availables>
+        <item>
+          <value>oracle 8</value>
+          <memo>oracle 8</memo>
+        </item>
+        <item>
+          <value>oracle 9</value>
+          <memo>oracle 9</memo>
+        </item>
+        <item>
+          <value>oracle 10g</value>
+          <memo>oracle 10g</memo>
+        </item>
+        <item>
+          <value>sybase 12</value>
+          <memo>sybase 12</memo>
+        </item>
+        <item>
+          <value>sqlsvr 2000</value>
+          <memo>sqlsvr 2000</memo>
+        </item>
+      </availables>
+      <maxQueryCount>1000</maxQueryCount>
+      <QUERY_TIMEOUT>30</QUERY_TIMEOUT>
+    </databaseTypes>
+    <DBPoolTypes>
+      <availables>
+        <item>
+          <value>poolman</value>
+          <memo>poolman</memo>
+        </item>
+        <item>
+          <value>weblogic/websphere</value>
+          <memo>weblogic/websphere</memo>
+        </item>
+        <item>
+          <value>tomcat</value>
+          <memo>tomcat</memo>
+        </item>
+      </availables>
+    </DBPoolTypes>
+    <DBPools>
+      <pool>
+        <name>zxdb_kf</name>
+        <poolType>poolman</poolType>
+        <dbType>oracle 9</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_yw</name>
+        <poolType>poolman</poolType>
+        <dbType>oracle 9</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_cc_01</name>
+        <poolType>poolman</poolType>
+        <dbType>oracle 9</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_cc_02</name>
+        <poolType>poolman</poolType>
+        <dbType>oracle 9</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_cc_03</name>
+        <poolType>poolman</poolType>
+        <dbType>oracle 9</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_cc_04</name>
+        <poolType>poolman</poolType>
+        <dbType>oracle 9</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_cc_05</name>
+        <poolType>poolman</poolType>
+        <dbType>oracle 9</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_cc_06</name>
+        <poolType>poolman</poolType>
+        <dbType>oracle 9</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_cc_07</name>
+        <poolType>poolman</poolType>
+        <dbType>oracle 9</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_cc_08</name>
+        <poolType>poolman</poolType>
+        <dbType>oracle 9</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_cc_09</name>
+        <poolType>poolman</poolType>
+        <dbType>oracle 9</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_cc_10</name>
+        <poolType>poolman</poolType>
+        <dbType>oracle 9</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_cc_11</name>
+        <poolType>poolman</poolType>
+        <dbType>oracle 9</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_cc_12</name>
+        <poolType>poolman</poolType>
+        <dbType>oracle 9</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_cc_13</name>
+        <poolType>poolman</poolType>
+        <dbType>oracle 9</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_cc_14</name>
+        <poolType>poolman</poolType>
+        <dbType>oracle 9</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_112_03</name>
+        <poolType>poolman</poolType>
+        <dbType>sybase 12</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_112_05</name>
+        <poolType>poolman</poolType>
+        <dbType>sybase 12</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_112_06</name>
+        <poolType>poolman</poolType>
+        <dbType>sybase 12</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_112_07</name>
+        <poolType>poolman</poolType>
+        <dbType>sybase 12</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_112_08</name>
+        <poolType>poolman</poolType>
+        <dbType>sybase 12</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_112_10</name>
+        <poolType>poolman</poolType>
+        <dbType>sybase 12</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_112_11</name>
+        <poolType>poolman</poolType>
+        <dbType>sybase 12</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_112_12</name>
+        <poolType>poolman</poolType>
+        <dbType>sybase 12</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_112_13</name>
+        <poolType>poolman</poolType>
+        <dbType>sybase 12</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_112_14</name>
+        <poolType>poolman</poolType>
+        <dbType>sybase 12</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_ibss</name>
+        <poolType>weblogic/websphere</poolType>
+        <dbType>oracle 9</dbType>
+        <changeCode />
+      </pool>
+      <pool>
+        <name>zxdb_bsn</name>
+        <poolType>weblogic/websphere</poolType>
+        <dbType>oracle 9</dbType>
+        <changeCode />
+      </pool>
+    </DBPools>
+    <drivers>
+      <weblibPath>weblib</weblibPath>
+      <driver>oracle 9</driver>
+      <availables>
+        <item>
+          <name>oracle 8</name>
+          <file>classes12.jar</file>
+          <file>nls_charset12.jar</file>
+        </item>
+        <item>
+          <name>oracle 9</name>
+          <file>ojdbc14.jar</file>
+          <file>nls_charset12_9.jar</file>
+        </item>
+        <item>
+          <name>oracle 10g</name>
+          <file>ojdbc14.jar</file>
+          <file>orai18n.jar</file>
+        </item>
+        <item>
+          <name>sqlserver 2000</name>
+          <file>msbase.jar</file>
+          <file>mssqlserver.jar</file>
+          <file>msutil.jar</file>
+        </item>
+        <item>
+          <name>sybase 12</name>
+          <file>jconn2.jar</file>
+          <file>jTDS2.jar</file>
+        </item>
+      </availables>
+    </drivers>
+    <DBPoolMap>
+      <conn>
+        <module>mcs</module>
+        <moduleDBPoolName>zxdb_yw</moduleDBPoolName>
+        <sysDBPoolName>zxdb_yw</sysDBPoolName>
+      </conn>
+      <conn>
+        <module>blacklist</module>
+        <moduleDBPoolName>zxdb_yw</moduleDBPoolName>
+        <sysDBPoolName>zxdb_1000</sysDBPoolName>
+      </conn>
+    </DBPoolMap>
+    <DBClientMap />
+    <pageSkill>
+      <item>
+        <skill>26</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=4</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>32</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>25</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>33</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=5</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>17</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=4</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>46</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=4</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>66</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=4</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>106</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=4</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>126</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=4</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>146</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=4</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>166</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=4</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>186</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=4</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>206</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=4</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>226</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=4</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>246</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=4</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>95</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=4</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>78</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=4</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>55</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=5</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>53</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=5</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>73</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=5</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>113</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=5</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>133</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=5</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>153</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=5</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>173</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=5</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>193</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=5</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>213</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=5</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>233</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=5</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>253</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=5</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>117</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=5</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>86</skill>
+        <page>workflow/wf_leavebill.jsp?servicekey=5</page>
+        <target>Service</target>
+      </item>
+      <item>
+        <skill>39</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>56</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>52</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>54</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>72</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>74</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>112</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>114</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>132</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>134</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>152</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>154</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>172</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>174</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>192</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>194</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>212</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>214</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>232</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>234</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>252</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>254</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>116</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>118</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>85</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+      <item>
+        <skill>87</skill>
+        <page>nankang/WebCallOut.jsp?callType=zasg_seat</page>
+        <target>Service5</target>
+      </item>
+    </pageSkill>
+    <copyRight>Copyright © 1999-2007 ZTE Corporation. All rights reserved.</copyRight>
+    <saveLoadDays>30</saveLoadDays>
+    <servicekey>10000</servicekey>
+    <mcsVersion>2.01.04</mcsVersion>
+    <mcsBuild>15</mcsBuild>
+    <siteName>ZXCC</siteName>
+    <loginDetectInterval>60</loginDetectInterval>
+    <loginIpLimit>1</loginIpLimit>
+    <loginClientPerIp>2</loginClientPerIp>
+    <DefaultPage>default.jsp</DefaultPage>
+    <isMultiDatabase>1</isMultiDatabase>
+    <DeployPath>zxcc</DeployPath>
+    <UploadFileSize>3</UploadFileSize>
+    <callToAuto />
+  </sys>
+</config>
+
